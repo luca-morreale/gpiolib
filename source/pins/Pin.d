@@ -56,6 +56,15 @@ abstract class Pin {
     abstract void pullUp();
 
     abstract void pullDown();
+
+
+    public final int gpioNumber() {
+        return pinNumber;
+    }
+
+    public final int physicalPinNumber() {
+        return physicalNumber;
+    }
 }
 
 
