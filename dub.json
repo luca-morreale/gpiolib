@@ -1,0 +1,8 @@
+{
+	"name": "gpiolib",
+	"description": "A simple library to interact with raspberry pi's gpio.",
+	"copyright": "Copyright © 2015, luca",
+	"authors": ["luca"],
+	"dependencies": {
+	}
+}
