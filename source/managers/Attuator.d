@@ -1,14 +1,18 @@
 module attuators.attuator;
 
-import pins;
-import modes;
-import values;
+package import pins;
+package import modes;
+package import values;
 
 abstract class Attuator {
 
-    abstract void setMode(Pin pin, Mode mode);
+    abstract void exportPin(int pin);
 
-    abstract void setValue(Pin pin, Value value);
+    abstract void unexportPin(Pin pin);
+
+    abstract void writeMode(Pin pin, Mode mode);
+
+    abstract void writeValue(Pin pin, Value value);
 
     abstract Mode readMode(Pin pin);
 
