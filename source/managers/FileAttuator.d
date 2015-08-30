@@ -20,11 +20,12 @@ class FileAttuator : Attuator {
 
     private this() { }
 
-    public override void exportPin(int pin) {
+    public override Pin exportPin(uint pin) {
         if(!pinAlreadyExported(pin)) {
             auto exportFile = File(path~"export", "w");
             exportFile.write(pin);
         }
+        return new DigitalPin(pin, pin, this);
     }
 
     public override void unexportPin(Pin pin) {
@@ -60,7 +61,7 @@ class FileAttuator : Attuator {
         throw new Exception("Pull-Up operation isn't implemented with usig file manger");
     }
 
-    public override void setPullDow(Pin pin) {
+    public override void setPullDown(Pin pin) {
         throw new Exception("Pull-Down operation isn't implemented with usig file manger");
     }
 

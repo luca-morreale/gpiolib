@@ -7,14 +7,14 @@ abstract class Pin {
 
     private Mode mode;
     private Value value;
-    private ushort pinNumber;
-    private ushort physicalNumber;
+    private uint pinNumber;
+    private uint physicalNumber;
 
-    this(ushort pin, ushort physPin) {
+    this(uint pin, uint physPin) {
         this(pin, physPin, Input(), Low());
     }
 
-    this(ushort pin, ushort physPin, Mode mode, Value value) {
+    this(uint pin, uint physPin, Mode mode, Value value) {
         this.pinNumber = pin;
         this.physicalNumber = physPin;
         this.mode = mode;

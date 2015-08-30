@@ -6,7 +6,7 @@ package import values;
 
 abstract class Attuator {
 
-    abstract void exportPin(int pin);
+    abstract Pin exportPin(uint pin);
 
     abstract void unexportPin(Pin pin);
 
@@ -20,6 +20,6 @@ abstract class Attuator {
 
     abstract void setPullUp(Pin pin);
 
-    abstract void setPullDow(Pin pin);
+    abstract void setPullDown(Pin pin);
 
 }
