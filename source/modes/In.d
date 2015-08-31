@@ -1,7 +1,8 @@
 module modes.inputmode;
 
 import modes.mode;
-
+import modes.visitor;
+import pins.pin;
 
 final class InputMode : Mode {
 
@@ -11,8 +12,8 @@ final class InputMode : Mode {
         return "in";
     }
 
-    public ubyte getBinaryMode() {
-        return 0;
+    public void executeVisitor(ModeVisitor visitor, Pin pin) {
+        visitor.inputGPIOMode(pin);
     }
 
     protected static Mode factory() {
