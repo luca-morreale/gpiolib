@@ -1,5 +1,8 @@
 module values.value;
 
+import values.visitor;
+import pins.pin;
+
 /**
    Interface for each values classes providing base methods usable to interface
    with file "/sys/class/gpio/gpioX/value" and with memory registry.
@@ -19,6 +22,6 @@ interface Value {
        Returns a byte that represents the value in the registry (without shifting);
        as would be read in "/dev/mem"
      */
-    ubyte getBinaryValue();
+    void executeVisitor(ValueVisitor visitor, Pin pin);
 
 }

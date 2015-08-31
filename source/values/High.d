@@ -1,6 +1,8 @@
 module values.high;
 
 import values.value;
+import values.visitor;
+import pins.pin;
 
 final class HighValue : Value {
 
@@ -8,8 +10,8 @@ final class HighValue : Value {
         return 1;
     }
 
-    ubyte getBinaryValue() {
-        return 1;
+    void executeVisitor(ValueVisitor visitor, Pin pin) {
+        visitor.setGPIO(pin);
     }
 
     protected static Value factory() {

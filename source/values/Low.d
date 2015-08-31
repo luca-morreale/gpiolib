@@ -1,6 +1,8 @@
 module values.low;
 
 import values.value;
+import values.visitor;
+import pins.pin;
 
 final class LowValue : Value {
 
@@ -8,8 +10,8 @@ final class LowValue : Value {
         return 0;
     }
 
-    ubyte getBinaryValue() {
-        return 0;
+    void executeVisitor(ValueVisitor visitor, Pin pin) {
+        visitor.clearGPIO(pin);
     }
 
     protected static Value factory() {

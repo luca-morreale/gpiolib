@@ -16,3 +16,13 @@ Mode modesFactory(string value) {
     }
 }
 
+Mode modesFactory(int value) {
+    switch(value) {
+        case 0:
+            return Input();
+        case 1:
+            return Output();
+        default:
+            throw new Exception("Mode requested does not exist!");
+    }
+}
