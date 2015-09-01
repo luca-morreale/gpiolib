@@ -21,6 +21,10 @@ class DigitalPin : Pin {
         this.attuator = attuator;
     }
 
+    ~this() {
+        attuator.unexportPin(this);
+    }
+
     public override void setMode(Mode mode) {
         super.setMode(mode);
         attuator.writeMode(this, mode);

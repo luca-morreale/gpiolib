@@ -10,7 +10,7 @@ class FileAttuator : Attuator {
     private static FileAttuator manager;
     private static string path = "/sys/class/gpio/";
 
-    public static FileAttuator factory() {
+    public static Attuator factory() {
 
         if(manager is null) {
             manager = new FileAttuator();

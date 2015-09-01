@@ -37,7 +37,7 @@ class MemoryAttuator : Attuator, ValueVisitor, ModeVisitor {
 
     private MmFile memFile;
 
-    this() {
+    private this() {
         this.memFile = new MmFile(memPath, MmFile.Mode.readWrite, size, cast(void*) gpioAddress, window);
     }
 
@@ -122,7 +122,7 @@ class MemoryAttuator : Attuator, ValueVisitor, ModeVisitor {
         getMemoryRangeFrom(gppudOffset)[] = createMemoryReplacement(pullMode)[];
         sleep(5);
         getMemoryRangeFrom(offset)[] = createMemoryReplacement(shift(pin))[];
-        sleep(5) ;
+        sleep(5);
 
         getMemoryRangeFrom(gppudOffset)[] = createMemoryReplacement(0)[];
         sleep(5);
@@ -156,6 +156,5 @@ class MemoryAttuator : Attuator, ValueVisitor, ModeVisitor {
     private void sleep(uint duration) {
         Thread.sleep(dur!("usecs")(duration));
     }
-
 
 }
