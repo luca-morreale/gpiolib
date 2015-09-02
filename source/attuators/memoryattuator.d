@@ -28,7 +28,7 @@ class MemoryAttuator : Attuator, ValueVisitor, ModeVisitor {
 
     private MmFile memFile;
 
-    private this() {
+    this() {
         this.memFile = new MmFile(memPath, MmFile.Mode.readWrite, size, cast(void*) gpioAddress, window);
     }
 
