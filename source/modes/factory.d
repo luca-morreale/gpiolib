@@ -1,9 +1,9 @@
-module modes.factory;
+module gpiolib.modes.factory;
 
 import std.string;
-import modes.inputmode;
-import modes.outputmode;
-import modes.mode;
+import gpiolib.modes.inputmode;
+import gpiolib.modes.outputmode;
+import gpiolib.modes.mode;
 
 Mode modesFactory(string value) {
     switch(value.toLower.strip) {

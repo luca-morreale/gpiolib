@@ -1,6 +1,6 @@
-module modes.visitor;
+module gpiolib.modes.visitor;
 
-import pins.pin;
+import gpiolib.pins.pin;
 
 interface ModeVisitor {
 

@@ -1,8 +1,8 @@
-module modes.inputmode;
+module gpiolib.modes.inputmode;
 
-import modes.mode;
-import modes.visitor;
-import pins.pin;
+import gpiolib.modes.mode;
+import gpiolib.modes.visitor;
+import gpiolib.pins.pin;
 
 final class InputMode : Mode {
 

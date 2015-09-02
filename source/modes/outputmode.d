@@ -1,8 +1,8 @@
-module modes.outputmode;
+module gpiolib.modes.outputmode;
 
-import modes.mode;
-import modes.visitor;
-import pins.pin;
+import gpiolib.modes.mode;
+import gpiolib.modes.visitor;
+import gpiolib.pins.pin;
 
 
 final class OutputMode : Mode {

@@ -1,8 +1,8 @@
-module values.low;
+module gpiolib.values.low;
 
-import values.value;
-import values.visitor;
-import pins.pin;
+import gpiolib.values.value;
+import gpiolib.values.visitor;
+import gpiolib.pins.pin;
 
 final class LowValue : Value {
 

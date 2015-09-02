@@ -1,10 +1,10 @@
-module attuators.fileattuator;
+module gpiolib.attuators.fileattuator;
 
-import attuators.attuator;
+import gpiolib.attuators.attuator;
 import std.conv;
-import std.stdio;
 import std.file;
-import std.exception;
+import std.stdio : File;
+import std.exception : ErrnoException;
 
 class FileAttuator : Attuator {
 

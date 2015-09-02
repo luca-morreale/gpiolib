@@ -1,6 +1,6 @@
-module values.visitor;
+module gpiolib.values.visitor;
 
-import pins.pin;
+import gpiolib.pins.pin;
 
 interface ValueVisitor {
 

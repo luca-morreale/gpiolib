@@ -1,8 +1,8 @@
-module attuators.attuator;
+module gpiolib.attuators.attuator;
 
-package import pins;
-package import modes;
-package import values;
+package import gpiolib.pins;
+package import gpiolib.modes;
+package import gpiolib.values;
 
 abstract class Attuator {
 

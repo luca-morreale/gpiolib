@@ -1,6 +1,6 @@
-module attuators.memoryattuator;
+module gpiolib.attuators.memoryattuator;
 
-import attuators.attuator;
+import gpiolib.attuators.attuator;
 import std.bitmanip;
 import std.mmfile;
 import core.time;

@@ -1,4 +1,4 @@
-module pins;
+module gpiolib.pins;
 
-public import pins.pin;
-public import pins.digitalpin;
+public import gpiolib.pins.pin;
+public import gpiolib.pins.digitalpin;

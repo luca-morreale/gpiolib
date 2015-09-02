@@ -1,6 +1,6 @@
-module attuators;
+module gpiolib.attuators;
 
-public import attuators.attuator;
-public import attuators.fileattuator;
-public import attuators.memoryattuator;
+public import gpiolib.attuators.attuator;
+public import gpiolib.attuators.fileattuator;
+public import gpiolib.attuators.memoryattuator;
 

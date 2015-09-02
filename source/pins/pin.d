@@ -1,7 +1,7 @@
-module pins.pin;
+module gpiolib.pins.pin;
 
-import modes;
-import values;
+import gpiolib.modes;
+import gpiolib.values;
 
 abstract class Pin {
 

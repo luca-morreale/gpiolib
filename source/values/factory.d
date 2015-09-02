@@ -1,10 +1,10 @@
-module values.factory;
+module gpiolib.values.factory;
 
 import std.conv;
 import std.string;
-import values.high;
-import values.low;
-import values.value;
+import gpiolib.values.high;
+import gpiolib.values.low;
+import gpiolib.values.value;
 
 Value valuesFactory(string value) {
     return valuesFactory(to!int(value.strip));

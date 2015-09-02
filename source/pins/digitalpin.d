@@ -1,9 +1,9 @@
-module pins.digitalpin;
+module gpiolib.pins.digitalpin;
 
-import attuators;
-import pins.pin;
-import modes;
-import values;
+import gpiolib.attuators;
+import gpiolib.pins.pin;
+import gpiolib.modes;
+import gpiolib.values;
 
 class DigitalPin : Pin {
 

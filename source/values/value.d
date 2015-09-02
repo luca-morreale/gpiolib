@@ -1,7 +1,7 @@
-module values.value;
+module gpiolib.values.value;
 
-import values.visitor;
-import pins.pin;
+import gpiolib.values.visitor;
+import gpiolib.pins.pin;
 
 /**
    Interface for each values classes providing base methods usable to interface

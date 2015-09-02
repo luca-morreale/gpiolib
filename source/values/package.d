@@ -1,7 +1,7 @@
-module values;
+module gpiolib.values;
 
-public import values.value;
-public import values.high;
-public import values.low;
-public import values.factory;
-public import values.visitor;
+public import gpiolib.values.value;
+public import gpiolib.values.high;
+public import gpiolib.values.low;
+public import gpiolib.values.factory;
+public import gpiolib.values.visitor;

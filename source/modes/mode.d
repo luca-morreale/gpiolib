@@ -1,7 +1,7 @@
-module modes.mode;
+module gpiolib.modes.mode;
 
-import modes.visitor;
-import pins.pin;
+import gpiolib.modes.visitor;
+import gpiolib.pins.pin;
 
 /**
    Interface for each modes classes providing base methods usable to interface
