@@ -9,15 +9,6 @@ import core.thread;
 
 class MemoryAttuator : Attuator, ValueVisitor, ModeVisitor {
 
-    private static MemoryAttuator manager;
-
-    public static Attuator factory() {
-        if(manager is null) {
-            manager = new MemoryAttuator();
-        }
-        return manager;
-    }
-
     private const string memPath = "/dev/mem";
 
     private const size_t K = 1024;

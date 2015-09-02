@@ -1,12 +1,13 @@
 module values.factory;
 
 import std.conv;
+import std.string;
 import values.high;
 import values.low;
 import values.value;
 
 Value valuesFactory(string value) {
-    return valuesFactory(to!int(value));
+    return valuesFactory(to!int(value.strip));
 }
 
 Value valuesFactory(int value) {

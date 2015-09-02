@@ -6,7 +6,7 @@ import modes.outputmode;
 import modes.mode;
 
 Mode modesFactory(string value) {
-    switch(value.toLower) {
+    switch(value.toLower.strip) {
         case "in":
             return Input();
         case "out":
