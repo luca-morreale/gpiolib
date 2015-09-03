@@ -26,11 +26,11 @@ abstract class Pin {
     }
 
     public void outputMode() {
-        this.setMode(Output());
+        setMode(Output());
     }
 
     public void inputMode() {
-        this.setMode(Input());
+        setMode(Input());
     }
 
     public Mode readMode() {
@@ -42,11 +42,11 @@ abstract class Pin {
     }
 
     public void high() {
-        this.setValue(High());
+        setValue(High());
     }
 
     public void low() {
-        this.setValue(Low());
+        setValue(Low());
     }
 
     public Value readValue() {
@@ -57,12 +57,13 @@ abstract class Pin {
 
     abstract void pullDown();
 
+    abstract void close();
 
-    public final int gpioNumber() {
+    public final uint gpioNumber() {
         return pinNumber;
     }
 
-    public final int physicalPinNumber() {
+    public final uint physicalPinNumber() {
         return physicalNumber;
     }
 }
