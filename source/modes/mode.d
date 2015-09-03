@@ -1,6 +1,5 @@
 module gpiolib.modes.mode;
 
-import gpiolib.modes.visitor;
 import gpiolib.pins.pin;
 
 /**
@@ -22,5 +21,5 @@ interface Mode {
        Returns a byte that represents the mode in the registry (without shifting);
        as would be read in "/dev/mem"
      */
-    void executeVisitor(ModeVisitor visitor, Pin pin);
+    ubyte binaryMode();
 }

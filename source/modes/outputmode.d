@@ -1,7 +1,6 @@
 module gpiolib.modes.outputmode;
 
 import gpiolib.modes.mode;
-import gpiolib.modes.visitor;
 import gpiolib.pins.pin;
 
 
@@ -11,8 +10,8 @@ final class OutputMode : Mode {
         return "out";
     }
 
-    public void executeVisitor(ModeVisitor visitor, Pin pin) {
-        visitor.outputGPIOMode(pin);
+    public ubyte binaryMode() {
+        return 1;
     }
 
     protected static Mode factory() {
@@ -27,4 +26,6 @@ unittest {
 
     assert(cast(OutputMode)output);
     assert(output != Output());
+    assert(input.binaryMode == 1);
+    assert(input.getMode == "out");
 }
