@@ -10,11 +10,9 @@ class FileAttuator : Attuator {
 
     private static string path = "/sys/class/gpio/";
 
-    this() { }
-
     public override Pin exportPin(uint pin) {
         if(!pinAlreadyExported(pin)) {
-            auto exportFile = File(path~"export", "w");
+            auto exportFile = File(path ~ "export", "w");
             exportFile.write(pin);
             closeFile(exportFile);
         }
@@ -56,11 +54,11 @@ class FileAttuator : Attuator {
     }
 
     public override void setPullUp(Pin pin) {
-        throw new Exception("Pull-Up operation isn't implemented with usig file manger");
+        throw new Exception("Pull-Up operation isn't implemented in FileAttuator.");
     }
 
     public override void setPullDown(Pin pin) {
-        throw new Exception("Pull-Down operation isn't implemented with usig file manger");
+        throw new Exception("Pull-Down operation isn't implemented in FileAttuator.");
     }
 
     private bool pinAlreadyExported(int pin) {

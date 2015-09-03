@@ -4,7 +4,7 @@ package import gpiolib.pins;
 package import gpiolib.modes;
 package import gpiolib.values;
 
-abstract class Attuator {
+interface Attuator {
 
     abstract Pin exportPin(uint pin);
 
