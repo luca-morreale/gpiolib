@@ -18,6 +18,10 @@ final class LowValue : Value {
         return new LowValue();
     }
 
+    public override string toString() {
+        return "Value: Low";
+    }
+
 }
 
 alias Low = LowValue.factory;

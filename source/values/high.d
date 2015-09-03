@@ -18,6 +18,9 @@ final class HighValue : Value {
         return new HighValue();
     }
 
+    public override string toString() {
+        return "Value: High";
+    }
 }
 
 alias High = HighValue.factory;
