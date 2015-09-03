@@ -7,12 +7,16 @@ final class InputMode : Mode {
 
     this() { }
 
-    public string getMode() {
+    public override string getMode() {
         return "in";
     }
 
-    public ubyte binaryMode() {
+    public override ubyte binaryMode() {
         return 0;
+    }
+
+    public override string toString() {
+        return "Mode: in";
     }
 
     protected static Mode factory() {

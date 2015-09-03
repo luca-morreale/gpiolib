@@ -9,7 +9,7 @@ import gpiolib.pins.pin;
    Authors:   Luca Morreale
 
  */
-interface Mode {
+abstract class Mode {
 
     /**
        Returns a string identifying the mode as would be read in

@@ -22,7 +22,9 @@ class DigitalPin : Pin {
     }
 
     ~this() {
-        attuator.unexportPin(this);
+        if(attuator !is null) {
+            close();
+        }
     }
 
     public override void setMode(Mode mode) {
@@ -70,4 +72,17 @@ class DigitalPin : Pin {
     public override void pullDown() {
         attuator.setPullDown(this);
     }
+
+    public override void close() {
+        attuator.unexportPin(this);
+    }
+
+    public override string toString() {
+        auto pin = super.gpioNumber();
+        auto value = super.readValue();
+        auto mode = super.readMode();
+
+        return "Pin " ~ std.conv.to!string(pin) ~ ": " ~ mode.toString ~ " ," ~ value.toString;
+    }
+
 }

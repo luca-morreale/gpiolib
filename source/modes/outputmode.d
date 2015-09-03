@@ -6,12 +6,16 @@ import gpiolib.pins.pin;
 
 final class OutputMode : Mode {
 
-    public string getMode() {
+    public override string getMode() {
         return "out";
     }
 
-    public ubyte binaryMode() {
+    public override ubyte binaryMode() {
         return 1;
+    }
+
+    public override string toString() {
+        return "Mode: out";
     }
 
     protected static Mode factory() {

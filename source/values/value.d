@@ -10,7 +10,7 @@ import gpiolib.pins.pin;
    Authors:   Luca Morreale
 
  */
-interface Value {
+abstract class Value {
 
     /**
        Returns an int identifying the value as would be read in

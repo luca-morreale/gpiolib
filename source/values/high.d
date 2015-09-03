@@ -6,20 +6,20 @@ import gpiolib.pins.pin;
 
 final class HighValue : Value {
 
-    int getValue() {
+    public override int getValue() {
         return 1;
     }
 
-    void executeVisitor(ValueVisitor visitor, Pin pin) {
+    public override void executeVisitor(ValueVisitor visitor, Pin pin) {
         visitor.setGPIO(pin);
-    }
-
-    protected static Value factory() {
-        return new HighValue();
     }
 
     public override string toString() {
         return "Value: High";
+    }
+
+    protected static Value factory() {
+        return new HighValue();
     }
 }
 
