@@ -3,11 +3,12 @@ module gpiolib.attuators.memoryattuator;
 import gpiolib.attuators.attuator;
 import std.bitmanip;
 import std.mmfile;
+import std.algorithm;
 import core.time;
 import core.thread;
 
 
-class MemoryAttuator : Attuator, ValueVisitor, ModeVisitor {
+class MemoryAttuator : Attuator, ValueVisitor {
 
     private const string memPath = "/dev/mem";
 
@@ -20,7 +21,7 @@ class MemoryAttuator : Attuator, ValueVisitor, ModeVisitor {
 
     private const ubyte pinMask = 31;
 
-    private const uint modeOffset = 0;
+    private const uint modeOffset = 0 ;
     private const uint setOffset = 7;
     private const uint clearOffset = 10;
     private const uint levelOffset = 13;
@@ -29,7 +30,7 @@ class MemoryAttuator : Attuator, ValueVisitor, ModeVisitor {
     private MmFile memFile;
 
     this() {
-        this.memFile = new MmFile(memPath, MmFile.Mode.readWrite, size, cast(void*) gpioAddress, window);
+        this.memFile = new MmFile(memPath, MmFile.Mode.readWrite, size, null, window);
     }
 
     public override Pin exportPin(uint pin) {
@@ -42,25 +43,13 @@ class MemoryAttuator : Attuator, ValueVisitor, ModeVisitor {
     }
 
     public override void writeMode(Pin pin, Mode mode) {
-        mode.executeVisitor(this, pin);
-    }
-
-    public void inputGPIOMode(Pin pin) {
         auto gpioNumber = pin.gpioNumber;
         auto offset = gpioNumber / 10;
+        auto bitOffset = modeBitShift(gpioNumber);
 
-        ubyte[4] memory = getMemoryRangeFrom(offset);
-        auto data = convertMemory(memory) & ~shift(7, offset);
-        memory[] = createMemoryReplacement(data)[];
-    }
-
-    public void outputGPIOMode(Pin pin) {
-        auto gpioNumber = pin.gpioNumber;
-        auto offset = gpioNumber / 10;
-
-        ubyte[4] memory = getMemoryRangeFrom(offset);
-        auto data = (convertMemory(memory) & ~shift(7, offset)) | shift(gpioNumber);
-        memory[] = createMemoryReplacement(data)[];
+        ubyte[] memory = getInOrderMemorySlice(offset);
+        auto data = (convertMemoryToNumber(memory) & ~shift(7, bitOffset)) | shift(mode.binaryMode, bitOffset);
+        writeOverMemory(offset, data);
     }
 
     public override void writeValue(Pin pin, Value value) {
@@ -69,34 +58,31 @@ class MemoryAttuator : Attuator, ValueVisitor, ModeVisitor {
 
     public void clearGPIO(Pin pin) {
         //This also write 0 over all other pins, but this won't have any effects
-        auto replacement = createMemoryReplacement(shift(pin.gpioNumber));
-        auto memory = getMemoryRangeFrom(clearOffset);
-        memory[] = replacement[];
+        writeOverMemory(clearOffset, shift(pin.gpioNumber));
     }
 
     public void setGPIO(Pin pin) {
         //This also write 0 over all other pins, but this won't have any effects
-        auto replacement = createMemoryReplacement(shift(pin.gpioNumber));
-        auto memory = getMemoryRangeFrom(setOffset);
-        memory[] = replacement[];
+        writeOverMemory(setOffset, shift(pin.gpioNumber));
     }
 
     public override Mode readMode(Pin pin) {
         auto gpioNumber = pin.gpioNumber;
         auto offset = gpioNumber / 10;
 
-        ubyte[4] memory = getMemoryRangeFrom(offset);
-        auto data = convertMemory(memory) & shift(7, offset);
+        ubyte[] memory = getInOrderMemorySlice(offset);
+        auto data = convertMemoryToNumber(memory) & shift(7, modeBitShift(gpioNumber));
 
-        return modesFactory(data >>> offset);
+        return modesFactory(data >> modeBitShift(gpioNumber));
     }
 
     public override Value readValue(Pin pin) {
         auto gpio = pin.gpioNumber;
-        ubyte[4] levels = getMemoryRangeFrom(levelOffset);
-        auto value = convertMemory(levels) & shift(gpio);
 
-        return valuesFactory(value);
+        ubyte[] levels = getInOrderMemorySlice(levelOffset);
+        auto value = convertMemoryToNumber(levels) & shift(gpio);
+
+        return valuesFactory(value >> gpio);
     }
 
     public override void setPullUp(Pin pin) {
@@ -110,41 +96,61 @@ class MemoryAttuator : Attuator, ValueVisitor, ModeVisitor {
     private void setResistor(ubyte pullMode, uint pin) {
         uint offset = pin / 32;      //32 per registro!
 
-        getMemoryRangeFrom(gppudOffset)[] = createMemoryReplacement(pullMode)[];
+        writeOverMemory(gppudOffset, pullMode);
         sleep(5);
-        getMemoryRangeFrom(offset)[] = createMemoryReplacement(shift(pin))[];
+        writeOverMemory(offset, shift(pin));
         sleep(5);
 
-        getMemoryRangeFrom(gppudOffset)[] = createMemoryReplacement(0)[];
+        writeOverMemory(gppudOffset, 0);
         sleep(5);
-        getMemoryRangeFrom(offset)[] = createMemoryReplacement(0)[];
+        writeOverMemory(gppudOffset, 0);
         sleep(5);
     }
 
-    private ubyte[] getMemoryRangeFrom(uint start) {
-        return cast(ubyte[]) memFile[start .. start + 4];
+    protected ubyte[] getInOrderMemorySlice(uint start) {
+        auto memory = (extractMemory(start)).dup;
+        reverse(memory);
+        return memory;
     }
 
-    private uint convertMemory(ubyte[4] memory) {
-        return bigEndianToNative!uint(memory);
+    protected ubyte[] extractMemory(uint start) {
+        ulong offset = start * uint.sizeof;
+        return cast(ubyte[]) memFile[gpioAddress + offset .. gpioAddress + offset + uint.sizeof];
     }
 
-    private ubyte[] createMemoryReplacement(uint data) {
+    protected void writeOverMemory(uint start, uint data) {
+        auto memory = extractMemory(start);
+
+        auto replacement = createMemoryReplacement(data);
+        reverse(replacement);
+
+        memory[] = replacement[];
+    }
+
+    protected ubyte[] createMemoryReplacement(uint data) {
         ubyte[] replacement = [0, 0, 0, 0];
         replacement.write!uint(data, 0);
 
         return replacement;
     }
 
-    private uint shift(uint places) {
+    protected uint convertMemoryToNumber(ubyte[] memory) {
+        return memory.read!uint();
+    }
+
+    private uint modeBitShift(uint pin) {
+        return (pin % 10) * 3;
+    }
+
+    protected uint shift(uint places) {
         return shift(1, places);
     }
 
-    private uint shift(ubyte number, uint places) {
-        return number << places & pinMask;
+    protected uint shift(ubyte number, uint places) {
+        return number << (places & pinMask);
     }
 
-    private void sleep(uint duration) {
+    protected void sleep(uint duration) {
         Thread.sleep(dur!("usecs")(duration));
     }
 
