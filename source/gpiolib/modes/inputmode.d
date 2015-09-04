@@ -1,11 +1,15 @@
+/**
+    This module provide a simple implementation of Mode representing
+    the input direction of the pin.
+
+    Author: Morreale Luca
+*/
 module gpiolib.modes.inputmode;
 
 import gpiolib.modes.mode;
 import gpiolib.pins.pin;
 
 final class InputMode : Mode {
-
-    this() { }
 
     public override string getMode() {
         return "in";
@@ -24,6 +28,9 @@ final class InputMode : Mode {
     }
 }
 
+/**
+    Simple alias to shortly create a new InputMode class.
+*/
 alias Input = InputMode.factory;
 
 unittest {

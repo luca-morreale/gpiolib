@@ -1,25 +1,27 @@
+/**
+    This module provide an abstract representation of modes available for the board.
+
+    Author: Morreale Luca
+*/
+
 module gpiolib.modes.mode;
 
 import gpiolib.pins.pin;
 
 /**
-   Interface for each modes classes providing base methods usable to interface
-   with file "/sys/class/gpio/gpioX/direction" and with memory registry.
-
-   Authors:   Luca Morreale
-
- */
+    Base class for each mode type.
+    It provide base methods usable to work with both FileAttuator and MemoryAttuator.
+*/
 abstract class Mode {
 
     /**
-       Returns a string identifying the mode as would be read in
-       "/sys/class/gpio/gpioX/direction" file.
+       Returns an integer identifying the mode 
+        (as would be read in "/sys/class/gpio/gpioX/direction" file).
      */
     string getMode();
 
     /**
-       Returns a byte that represents the mode in the registry (without shifting);
-       as would be read in "/dev/mem"
+        Returns a byte that represents the mode in the registry (without shifting).
      */
     ubyte binaryMode();
 }

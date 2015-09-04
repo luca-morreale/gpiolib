@@ -1,3 +1,9 @@
+/**
+    This module provide a simple implementation of Value representing
+    the low digital value.
+
+    Author: Morreale Luca
+*/
 module gpiolib.values.low;
 
 import gpiolib.values.value;
@@ -24,6 +30,9 @@ final class LowValue : Value {
 
 }
 
+/**
+    Alias used to create easly a new LowValue.
+*/
 alias Low = LowValue.factory;
 
 unittest {
@@ -31,4 +40,5 @@ unittest {
 
     assert(cast(LowValue)low);
     assert(low != Low());
+    assert(low.getValue == 0);
 }

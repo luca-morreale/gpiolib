@@ -1,3 +1,9 @@
+/**
+    Simple factory methods useable to translate string or number
+    to the corresponding Mode class.
+
+    Author: Morreale Luca
+*/
 module gpiolib.modes.factory;
 
 import std.string;

@@ -1,3 +1,9 @@
+/**
+    This module provide a simple implementation of Value representing
+    the high digital value.
+
+    Author: Morreale Luca
+*/
 module gpiolib.values.high;
 
 import gpiolib.values.value;
@@ -23,6 +29,9 @@ final class HighValue : Value {
     }
 }
 
+/**
+    Alias used to create easly a new HighValue.
+*/
 alias High = HighValue.factory;
 
 unittest {

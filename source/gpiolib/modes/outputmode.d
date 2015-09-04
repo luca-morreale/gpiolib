@@ -1,8 +1,13 @@
+/**
+    This module provide a simple implementation of Mode representing
+    the output direction of the pin.
+
+    Author: Morreale Luca
+*/
 module gpiolib.modes.outputmode;
 
 import gpiolib.modes.mode;
 import gpiolib.pins.pin;
-
 
 final class OutputMode : Mode {
 
@@ -23,6 +28,9 @@ final class OutputMode : Mode {
     }
 }
 
+/**
+    Simple alias to shortly create a new OutputMode class.
+*/
 alias Output = OutputMode.factory;
 
 unittest {

@@ -1,3 +1,9 @@
+/**
+    Simple factory methods useable to translate string or number
+    to the corresponding Value class.
+
+    Author: Morreale Luca
+*/
 module gpiolib.values.factory;
 
 import std.conv;
