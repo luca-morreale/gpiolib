@@ -1,3 +1,8 @@
+/**
+    Base implementation of the abstract representation of a Pin.
+
+    Author: Morreale Luca
+*/
 module gpiolib.pins.digitalpin;
 
 import gpiolib.attuators;
@@ -5,6 +10,12 @@ import gpiolib.pins.pin;
 import gpiolib.modes;
 import gpiolib.values;
 
+/**
+    This class provide base functionality for pins that work only with digital values;
+    it allows to set/read values using Pin's class methods.
+
+    Remember to free the pin after you have finished calling close() method.
+*/
 class DigitalPin : Pin {
 
     private Attuator attuator;
@@ -32,14 +43,6 @@ class DigitalPin : Pin {
         attuator.writeMode(this, mode);
     }
 
-    public override void outputMode() {
-        super.outputMode();
-    }
-
-    public override void inputMode() {
-        super.inputMode();
-    }
-
     public override Mode readMode() {
         auto mode = attuator.readMode(this);
         super.setMode(mode);
@@ -49,14 +52,6 @@ class DigitalPin : Pin {
     public override void setValue(Value value) {
         super.setValue(value);
         attuator.writeValue(this, value);
-    }
-
-    public override void high() {
-        super.high();
-    }
-
-    public override void low() {
-        super.low();
     }
 
     public override Value readValue() {

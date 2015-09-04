@@ -1,3 +1,10 @@
+/**
+    An Attuator that works with files in /sys/class/gpio path;
+    it writes and reads on export, unexport, direction, value files according
+    to the operation requested.
+
+    Author: Morreale Luca
+*/
 module gpiolib.attuators.fileattuator;
 
 import gpiolib.attuators.attuator;
@@ -8,8 +15,16 @@ import std.exception : ErrnoException;
 
 class FileAttuator : Attuator {
 
+    /**
+        Base path for files listed above.
+    */
     private static string path = "/sys/class/gpio/";
 
+    /**
+        Creates the pins checkin if it has been already exported,
+        if it's not it write over "export" file so the OS will create a subdirectory
+        representing the pin specified.
+    */
     public override Pin exportPin(uint pin) {
         if(!pinAlreadyExported(pin)) {
             auto exportFile = File(path ~ "export", "w");
@@ -19,6 +34,10 @@ class FileAttuator : Attuator {
         return new DigitalPin(pin, pin, this);
     }
 
+    /**
+        Wites over the "unexport" file in order to delete the subfolder
+        representing the pin.
+    */
     public override void unexportPin(Pin pin) {
         auto unexportFile = File(path ~ "unexport", "w");
         unexportFile.write(pin.gpioNumber);
@@ -61,6 +80,9 @@ class FileAttuator : Attuator {
         throw new Exception("Pull-Down operation isn't implemented in FileAttuator.");
     }
 
+    /**
+        Checks if the subfolder gpioX exists, where X is the number of the pin.
+    */
     private bool pinAlreadyExported(int pin) {
         foreach (DirEntry e; dirEntries(path, SpanMode.shallow)) {
             if(e.name == "gpio" ~ to!string(pin)) {
@@ -74,6 +96,9 @@ class FileAttuator : Attuator {
         return path ~ "gpio" ~ to!string(pin.gpioNumber) ~ "/";
     }
 
+    /**
+        Close safly the file open and flush it's buffer.
+    */
     private void closeFile(ref File file) {
         try {
             file.flush();
