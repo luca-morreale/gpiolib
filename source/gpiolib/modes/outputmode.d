@@ -38,6 +38,6 @@ unittest {
 
     assert(cast(OutputMode)output);
     assert(output != Output());
-    assert(input.binaryMode == 1);
-    assert(input.getMode == "out");
+    assert(output.binaryMode == 1);
+    assert(output.getMode == "out");
 }
