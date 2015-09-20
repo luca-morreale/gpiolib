@@ -1,4 +1,4 @@
-# gpiolib
+# gpiolib [![Build Status](https://travis-ci.org/luca-morreale/gpiolib.svg)](https://travis-ci.org/luca-morreale/gpiolib)
 A simple library to interface with Raspberry Pi's GPIO written in D language
 
 # Features
